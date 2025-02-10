@@ -1,5 +1,3 @@
-
-
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -22,7 +20,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("../saved_models/1")
+MODEL = tf.keras.models.load_model("C:/Users/adity/OneDrive/Desktop/DeepLearningProject/Project/repository/potato-disease-classification/saved_models/4.keras")#, call_endpoint='serving_default')
+
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
@@ -40,7 +39,7 @@ async def predict(
 ):
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
-    
+ 
     predictions = MODEL.predict(img_batch)
 
     predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
@@ -52,4 +51,3 @@ async def predict(
 
 if __name__ == "__main__":
     uvicorn.run(app, host='localhost', port=8000)
-
