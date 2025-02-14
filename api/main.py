@@ -30,6 +30,10 @@ CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 async def ping():
     return "Hello, I am alive"
 
+@app.get("/")
+async def root():
+    return {"message": "FastAPI Backend is Running!"}
+
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))
     return image
