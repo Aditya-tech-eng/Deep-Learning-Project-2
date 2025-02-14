@@ -11,6 +11,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    "https://deep-learning-project-2-6.onrender.com" ,
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -49,5 +50,8 @@ async def predict(
         'confidence': float(confidence)
     }
 
+import os
+
 if __name__ == "__main__":
-    uvicorn.run(app, host='localhost', port=8000)
+    port = int(os.environ.get("PORT", 8000))  # Default to 8000 if PORT is not set
+    uvicorn.run(app, host="0.0.0.0", port=port)
