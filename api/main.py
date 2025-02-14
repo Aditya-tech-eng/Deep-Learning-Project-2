@@ -20,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("C:/Users/adity/OneDrive/Desktop/DeepLearningProject/Project/repository/potato-disease-classification/saved_models/4.keras")#, call_endpoint='serving_default')
+MODEL = tf.keras.models.load_model("saved_models/4.keras")#, call_endpoint='serving_default')
 
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
