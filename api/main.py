@@ -11,7 +11,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://deep-learning-project-2-6.onrender.com" ,
+    "https://deep-learning-project-2-7.onrender.com" ,
 ]
 app.add_middleware(
     CORSMiddleware,
