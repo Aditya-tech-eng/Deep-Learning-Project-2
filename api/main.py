@@ -8,11 +8,13 @@ import tensorflow as tf
 
 app = FastAPI()
 
+# ✅ FIXED: Allow frontend URL (not backend URL)
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://deep-learning-project-2-8.onrender.com" ,
+    "https://deep-learning-project-2-23.onrender.com",  # ✅ Correct frontend URL
 ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -21,8 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("saved_models/4.keras")#, call_endpoint='serving_default')
-
+MODEL = tf.keras.models.load_model("saved_models/4.keras")
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
@@ -44,7 +45,7 @@ async def predict(
 ):
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
- 
+
     predictions = MODEL.predict(img_batch)
 
     predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
