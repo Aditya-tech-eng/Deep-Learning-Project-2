@@ -5,6 +5,7 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	
 }
 
 code {
@@ -16,5 +17,5 @@ code {
 	background-color: transparent !important;
 }
 .MuiDropzoneArea-text, .MuiDropzoneArea-icon {
-  color: white !important;
+  color: rgb(16, 4, 4) !important;
 }

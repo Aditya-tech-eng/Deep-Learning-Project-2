@@ -10,7 +10,11 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { Paper, CardActionArea, CardMedia, Grid, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Button, CircularProgress } from "@material-ui/core";
 
+
 import image from "./background.jpg";
+
+import image from "./img-bg.webp";
+
 import { DropzoneArea } from 'material-ui-dropzone';
 import { common } from '@material-ui/core/colors';
 import Clear from '@material-ui/icons/Clear';
@@ -181,7 +185,7 @@ export const ImageUpload = () => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-                withCredentials: true,  // Important if using sessions or cookies
+                withCredentials: true,  // Important if using sessions or cookie
             }
         );
 
@@ -273,6 +277,7 @@ export const ImageUpload = () => {
                   acceptedFiles={['image/*']}
                   dropzoneText={"Drag and drop an image of a potato plant leaf to process"}
                   onChange={onSelectFile}
+                 
                 />
               </CardContent>}
               {data && <CardContent className={classes.detail}>
