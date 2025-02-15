@@ -12,16 +12,19 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://deep-learning-project-2-23.onrender.com",  # ✅ Correct frontend URL
+    "https://deep-learning-project-2-25.onrender.com",  # ✅ Correct frontend URL
 ]
+
+from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # ✅ Allow all origins (for now)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 MODEL = tf.keras.models.load_model("saved_models/4.keras")
 
