@@ -153,20 +153,34 @@ export const ImageUpload = () => {
   let confidence = 0;
 
   const sendFile = async () => {
-    if (image) {
-      let formData = new FormData();
-      formData.append("file", selectedFile);
-      let res = await axios({
-        method: "post",
-        url: process.env.REACT_APP_API_URL,
-        data: formData,
-      });
-      if (res.status === 200) {
-        setData(res.data);
-      }
-      setIsloading(false);
+    if (!selectedFile) return;
+    
+    let formData = new FormData();
+    formData.append("file", selectedFile);
+
+    try {
+        console.log("Sending request to:", process.env.REACT_APP_API_URL);
+        
+        let res = await axios.post(
+            process.env.REACT_APP_API_URL + "/predict", // Ensure the correct endpoint
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+
+        if (res.status === 200) {
+            setData(res.data);
+        }
+    } catch (error) {
+        console.error("Upload error:", error);
     }
-  }
+    
+    setIsloading(false);
+};
+
 
   const clearData = () => {
     setData(null);
