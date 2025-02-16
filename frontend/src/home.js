@@ -152,22 +152,23 @@ export const ImageUpload = () => {
   const [isLoading, setIsloading] = useState(false);
   let confidence = 0;
 
-  const sendFile = async () => {
+ const sendFile = async () => {
     if (!selectedFile) return;
     
     let formData = new FormData();
     formData.append("file", selectedFile);
 
     try {
-        console.log("Sending request to:", process.env.REACT_APP_API_URL);
+        console.log("Sending request to:", process.env.REACT_APP_API_URL + "/predict");
         
         let res = await axios.post(
-            process.env.REACT_APP_API_URL + "/predict", // Ensure the correct endpoint
+            `${process.env.REACT_APP_API_URL}/predict`,
             formData,
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+                withCredentials: true,  // Important if using sessions or cookies
             }
         );
 
@@ -180,6 +181,7 @@ export const ImageUpload = () => {
     
     setIsloading(false);
 };
+
 
 
   const clearData = () => {
