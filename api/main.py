@@ -8,18 +8,18 @@ import tensorflow as tf
 
 app = FastAPI()
 
-# ✅ FIXED: Allow frontend URL (not backend URL)
+#  FIXED: Allow frontend URL (not backend URL)
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://deep-learning-project-2-25.onrender.com",  # ✅ Correct frontend URL
+    "https://deep-learning-project-2-25.onrender.com",  #  Correct frontend URL
 ]
 
 from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ✅ Allow all origins (for now)
+    allow_origins=["*"],  # Allow all origins (for now)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
