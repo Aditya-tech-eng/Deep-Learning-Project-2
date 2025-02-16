@@ -13,17 +13,21 @@ origins = [
     "http://localhost",
     "http://localhost:3000",
     "https://deep-learning-project-2-25.onrender.com",  #  Correct frontend URL
+    "https://deep-learning-project-2-8.onrender.com"
 ]
 
-from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (for now)
+    allow_origins=origins,  # Allow only specific frontend URLs
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
+
+@app.post("/predict")
+async def predict():
+    return {"message": "CORS issue fixed!"}
 
 
 MODEL = tf.keras.models.load_model("saved_models/4.keras")
