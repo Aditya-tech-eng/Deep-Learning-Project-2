@@ -143,6 +143,19 @@ const useStyles = makeStyles((theme) => ({
     color: '#be6a77 !important',
   }
 }));
+
+import React, { useEffect } from 'react';
+
+const TestEnv = () => {
+  useEffect(() => {
+    console.log("API URL from .env:", process.env.REACT_APP_API_URL);
+  }, []);
+
+  return <div>Check the console for API URL</div>;
+};
+
+export default TestEnv;
+
 export const ImageUpload = () => {
   const classes = useStyles();
   const [selectedFile, setSelectedFile] = useState();
