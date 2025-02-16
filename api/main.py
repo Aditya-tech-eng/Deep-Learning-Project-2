@@ -8,14 +8,13 @@ import tensorflow as tf
 
 app = FastAPI()
 
-#  FIXED: Allow frontend URL (not backend URL)
+# Allow requests from frontend
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://deep-learning-project-2-25.onrender.com",  #  Correct frontend URL
-    "https://deep-learning-project-2-8.onrender.com"
+    "https://deep-learning-project-2-25.onrender.com",  # Correct frontend URL
+    "https://deep-learning-project-2-8.onrender.com"   # Backend (optional)
 ]
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,18 +24,13 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-@app.post("/predict")
-async def predict():
-    return {"message": "CORS issue fixed!"}
-
-
 MODEL = tf.keras.models.load_model("saved_models/4.keras")
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
 @app.get("/ping")
 async def ping():
-    return "Hello, I am alive"
+    return {"message": "Hello, I am alive"}
 
 @app.get("/")
 async def root():
@@ -47,9 +41,8 @@ def read_file_as_image(data) -> np.ndarray:
     return image
 
 @app.post("/predict")
-async def predict(
-    file: UploadFile = File(...)
-):
+async def predict(file: UploadFile = File(...)):
+    """ Process image and return classification result. """
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
 
