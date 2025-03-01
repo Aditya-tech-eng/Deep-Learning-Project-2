@@ -12,8 +12,6 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://deep-learning-project-2-25.onrender.com",  
-    "https://deep-learning-project-2-8.onrender.com"   # Backend 
 ]
 
 app.add_middleware(
@@ -23,8 +21,13 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
 )
+import os
 
-MODEL = tf.keras.models.load_model("saved_models/4.keras")
+MODEL_PATH = os.getenv("MODEL_PATH", "../saved_models/4.keras")
+
+MODEL = tf.keras.models.load_model(MODEL_PATH)
+
+
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
