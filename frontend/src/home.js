@@ -11,9 +11,9 @@ import CardContent from "@material-ui/core/CardContent";
 import { Paper, CardActionArea, CardMedia, Grid, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Button, CircularProgress } from "@material-ui/core";
 
 
-//import image from "./background.jpg";
+import image from "./background.jpg";
 
-import image from "./img-bg.webp";
+
 
 import { DropzoneArea } from 'material-ui-dropzone';
 import { common } from '@material-ui/core/colors';
