@@ -177,10 +177,10 @@ export const ImageUpload = () => {
     formData.append("file", selectedFile);
 
     try {
-        console.log("Sending request to:", process.env.REACT_APP_API_URL + "/predict");
+        console.log("Sending request to:", process.env.REACT_APP_API_URL );
         
         let res = await axios.post(
-            `${process.env.REACT_APP_API_URL}/predict`,
+            `${process.env.REACT_APP_API_URL}`,
             formData,
             {
                 headers: {
