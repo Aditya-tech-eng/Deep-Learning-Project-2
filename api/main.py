@@ -12,6 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    "https://deep-learning-project-2-3.onrender.com"
 ]
 
 app.add_middleware(
