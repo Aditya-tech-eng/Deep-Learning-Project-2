@@ -2,6 +2,11 @@
 
 This project showcases a web service built for image classification, leveraging a pre-trained deep learning model developed with TensorFlow. The API, constructed using FastAPI, allows users to upload images and receive real-time predictions about the image's content. This project demonstrates the seamless integration of deep learning models with web technologies, providing a practical example of deploying machine learning solutions.
 
+
+![image](https://github.com/user-attachments/assets/46d2c657-7d96-4be1-9bd9-fec0cba42cee)
+
+
+
 ## Project Overview
 
 This API serves as a bridge between a trained TensorFlow model and end-users. It allows for image uploads, processes them through the deep learning model, and returns the predicted class along with a confidence score. The core of the project lies in the deep learning model, which is designed to recognize patterns and features within images. The web service wraps this model, making it accessible through a simple HTTP interface.
