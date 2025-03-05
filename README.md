@@ -1,212 +1,68 @@
-# Potato Disease Classification
+# Image Classification API: Deep Learning Powered Web Service
 
-## Setup for Python:
+This project showcases a web service built for image classification, leveraging a pre-trained deep learning model developed with TensorFlow. The API, constructed using FastAPI, allows users to upload images and receive real-time predictions about the image's content. This project demonstrates the seamless integration of deep learning models with web technologies, providing a practical example of deploying machine learning solutions.
 
-1. Install Python ([Setup instructions](https://wiki.python.org/moin/BeginnersGuide))
+## Project Overview
 
-2. Install Python packages
+This API serves as a bridge between a trained TensorFlow model and end-users. It allows for image uploads, processes them through the deep learning model, and returns the predicted class along with a confidence score. The core of the project lies in the deep learning model, which is designed to recognize patterns and features within images. The web service wraps this model, making it accessible through a simple HTTP interface.
 
-```
-pip3 install -r training/requirements.txt
-pip3 install -r api/requirements.txt
-```
+**Key Features:**
 
-3. Install Tensorflow Serving ([Setup instructions](https://www.tensorflow.org/tfx/serving/setup))
+* **Deep Learning Model Integration:** Utilizes a pre-trained TensorFlow model for image classification.
+* **Real-time Predictions:** Provides immediate results upon image upload.
+* **User-Friendly API:** Built with FastAPI for a clean and efficient web service.
+* **Image Processing:** Handles image resizing and normalization for model compatibility.
+* **Deployment Ready:** Designed for easy deployment on platforms like Render.
 
-## Setup for ReactJS
+## Deep Learning Model
 
-1. Install Nodejs ([Setup instructions](https://nodejs.org/en/download/package-manager/))
-2. Install NPM ([Setup instructions](https://www.npmjs.com/get-npm))
-3. Install dependencies
+The heart of this project is a deep learning model, trained to classify images into predefined categories. The model's architecture and training process are crucial for its accuracy. This API assumes the existence of a pre-trained model file (`model.h5` or similar), which is loaded and used for inference.
 
-```bash
-cd frontend
-npm install --from-lock-json
-npm audit fix
-```
+**Model Characteristics:**
 
-4. Copy `.env.example` as `.env`.
+* The model is designed for image classification.
+* It expects images of a specific size (e.g., 150x150 pixels).
+* The model outputs class probabilities, which are then converted to predicted classes.
+* The accuracy of the API depends heavily on the model's training data and architecture.
 
-5. Change API url in `.env`.
+## Web Service
 
-## Setup for React-Native app
+The web service, built with FastAPI, provides a simple interface for interacting with the deep learning model. Users can upload images via a POST request to the `/predict` endpoint. The API then processes the image, passes it to the model, and returns the prediction results.
 
-1. Go to the [React Native environment setup](https://reactnative.dev/docs/environment-setup), then select `React Native CLI Quickstart` tab.  
+**API Functionality:**
 
-2. Install dependencies
+* **Image Upload:** Accepts image files through a POST request.
+* **Prediction:** Uses the loaded TensorFlow model to predict the image's class.
+* **Result Output:** Returns the predicted class and confidence score in JSON format.
+* **Error Handling:** Provides informative error messages for invalid inputs or processing failures.
 
-```bash
-cd mobile-app
-yarn install
-```
+## Deployment on Render
 
-  - 2.1 Only for mac users
-```bash
-cd ios && pod install && cd ../
-```
+This project is designed for easy deployment on Render, a cloud platform that simplifies web service deployment.
 
-3. Copy `.env.example` as `.env`.
+**Deployment Steps (Brief):**
 
-4. Change API url in `.env`.
+1.  **Create a Render Web Service:** Set up a new web service on Render.
+2.  **Connect Your Repository:** Link your GitHub or GitLab repository to Render.
+3.  **Configure Environment:** Specify the Python version and install dependencies using a `requirements.txt` file.
+4.  **Set Start Command:** Use `uvicorn main:app --host 0.0.0.0 --port 10000` or a similar command to start the API.
+5.  **Deploy:** Render will build and deploy your application.
 
-## Training the Model
+**Dependencies:**
 
-1. Download the data from [kaggle](https://www.kaggle.com/arjuntejaswi/plant-village).
-2. Only keep folders related to Potatoes.
-3. Run Jupyter Notebook in Browser.
+* `tensorflow==2.17.1`: For deep learning model inference.
+* `fastapi`: For building the web API.
+* `uvicorn`: For running the FastAPI application.
+* `python-multipart`: For handling file uploads.
+* `Pillow (PIL)`: For image processing.
+* `numpy`: For numerical operations.
+* `matplotlib`: (Optional) for possible image visualization during model development.
 
-```bash
-jupyter notebook
-```
+## Usage
 
-4. Open `training/potato-disease-training.ipynb` in Jupyter Notebook.
-5. In cell #2, update the path to dataset.
-6. Run all the Cells one by one.
-7. Copy the model generated and save it with the version number in the `models` folder.
+To use the API, send a POST request to the `/predict` endpoint with an image file attached. The API will return a JSON response containing the predicted class and confidence score.
 
-## Running the API
-
-### Using FastAPI
-
-1. Get inside `api` folder
+**Example (curl):**
 
 ```bash
-cd api
-```
-
-2. Run the FastAPI Server using uvicorn
-
-```bash
-uvicorn main:app --reload --host 0.0.0.0
-```
-
-3. Your API is now running at `0.0.0.0:8000`
-
-### Using FastAPI & TF Serve
-
-1. Get inside `api` folder
-
-```bash
-cd api
-```
-
-2. Copy the `models.config.example` as `models.config` and update the paths in file.
-3. Run the TF Serve (Update config file path below)
-
-```bash
-docker run -t --rm -p 8501:8501 -v C:/Code/potato-disease-classification:/potato-disease-classification tensorflow/serving --rest_api_port=8501 --model_config_file=/potato-disease-classification/models.config
-```
-
-4. Run the FastAPI Server using uvicorn
-   For this you can directly run it from your main.py or main-tf-serving.py using pycharm run option (as shown in the video tutorial)
-   OR you can run it from command prompt as shown below,
-
-```bash
-uvicorn main-tf-serving:app --reload --host 0.0.0.0
-```
-
-5. Your API is now running at `0.0.0.0:8000`
-
-## Running the Frontend
-
-1. Get inside `api` folder
-
-```bash
-cd frontend
-```
-
-2. Copy the `.env.example` as `.env` and update `REACT_APP_API_URL` to API URL if needed.
-3. Run the frontend
-
-```bash
-npm run start
-```
-
-## Running the app
-
-1. Get inside `mobile-app` folder
-
-```bash
-cd mobile-app
-```
-
-2. Copy the `.env.example` as `.env` and update `URL` to API URL if needed.
-
-3. Run the app (android/iOS)
-
-```bash
-npm run android
-```
-
-or
-
-```bash
-npm run ios
-```
-
-4. Creating public ([signed APK](https://reactnative.dev/docs/signed-apk-android))
-
-
-## Creating the TF Lite Model
-
-1. Run Jupyter Notebook in Browser.
-
-```bash
-jupyter notebook
-```
-
-2. Open `training/tf-lite-converter.ipynb` in Jupyter Notebook.
-3. In cell #2, update the path to dataset.
-4. Run all the Cells one by one.
-5. Model would be saved in `tf-lite-models` folder.
-
-## Deploying the TF Lite on GCP
-
-1. Create a [GCP account](https://console.cloud.google.com/freetrial/signup/tos?_ga=2.25841725.1677013893.1627213171-706917375.1627193643&_gac=1.124122488.1627227734.Cj0KCQjwl_SHBhCQARIsAFIFRVVUZFV7wUg-DVxSlsnlIwSGWxib-owC-s9k6rjWVaF4y7kp1aUv5eQaAj2kEALw_wcB).
-2. Create a [Project on GCP](https://cloud.google.com/appengine/docs/standard/nodejs/building-app/creating-project) (Keep note of the project id).
-3. Create a [GCP bucket](https://console.cloud.google.com/storage/browser/).
-4. Upload the potatoes.h5 model in the bucket in the path `models/potatos.h5`.
-5. Install Google Cloud SDK ([Setup instructions](https://cloud.google.com/sdk/docs/quickstarts)).
-6. Authenticate with Google Cloud SDK.
-
-```bash
-gcloud auth login
-```
-
-7. Run the deployment script.
-
-```bash
-cd gcp
-gcloud functions deploy predict_lite --runtime python38 --trigger-http --memory 512 --project project_id
-```
-
-8. Your model is now deployed.
-9. Use Postman to test the GCF using the [Trigger URL](https://cloud.google.com/functions/docs/calling/http).
-
-Inspiration: https://cloud.google.com/blog/products/ai-machine-learning/how-to-serve-deep-learning-models-using-tensorflow-2-0-with-cloud-functions
-
-## Deploying the TF Model (.h5) on GCP
-
-1. Create a [GCP account](https://console.cloud.google.com/freetrial/signup/tos?_ga=2.25841725.1677013893.1627213171-706917375.1627193643&_gac=1.124122488.1627227734.Cj0KCQjwl_SHBhCQARIsAFIFRVVUZFV7wUg-DVxSlsnlIwSGWxib-owC-s9k6rjWVaF4y7kp1aUv5eQaAj2kEALw_wcB).
-2. Create a [Project on GCP](https://cloud.google.com/appengine/docs/standard/nodejs/building-app/creating-project) (Keep note of the project id).
-3. Create a [GCP bucket](https://console.cloud.google.com/storage/browser/).
-4. Upload the tf .h5 model generate in the bucket in the path `models/potato-model.h5`.
-5. Install Google Cloud SDK ([Setup instructions](https://cloud.google.com/sdk/docs/quickstarts)).
-6. Authenticate with Google Cloud SDK.
-
-```bash
-gcloud auth login
-```
-
-7. Run the deployment script.
-
-```bash
-cd gcp
-gcloud functions deploy predict --runtime python38 --trigger-http --memory 512 --project project_id
-```
-
-8. Your model is now deployed.
-9. Use Postman to test the GCF using the [Trigger URL](https://cloud.google.com/functions/docs/calling/http).
-
-Inspiration: https://cloud.google.com/blog/products/ai-machine-learning/how-to-serve-deep-learning-models-using-tensorflow-2-0-with-cloud-functions
-
+curl -X POST -F "file=@path/to/your/image.jpg" [your-render-url]/predict
