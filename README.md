@@ -1,4 +1,5 @@
 # Image Classification API: Deep Learning Powered Web Service
+# Warning - The website may take 2 -3 min to load for the first time . This is the characteristic of the render free tier service and does not reflect on the code efficiency .
 
 This project showcases a web service built for image classification, leveraging a pre-trained deep learning model developed with TensorFlow. The API, constructed using FastAPI, allows users to upload images and receive real-time predictions about the image's content. This project demonstrates the seamless integration of deep learning models with web technologies, providing a practical example of deploying machine learning solutions.
 
