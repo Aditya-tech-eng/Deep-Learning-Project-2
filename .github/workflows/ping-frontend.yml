@@ -2,14 +2,15 @@ name: Keep Services Alive
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/5 * * * *"  # More frequent
   workflow_dispatch:
 
 jobs:
-  ping:
+  keep-alive:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping frontend
-        run: curl -s https://deep-learning-project-2-3.onrender.com/ > /dev/null
-      - name: Ping backend
-        run: curl -s https://deep-learning-project-2.onrender.com/ > /dev/null
+      - name: Ping Frontend
+        run: curl -s -o /dev/null -w "%{http_code}" https://deep-learning-project-2-3.onrender.com/
+
+      - name: Ping Backend Model Endpoint
+        run: curl -s -o /dev/null -w "%{http_code}" https://deep-learning-project-2.onrender.com/predict
